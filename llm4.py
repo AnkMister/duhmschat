@@ -1,12 +1,15 @@
 # streamdspy1.py
+import os
 import streamlit as st
 from supabase import create_client, Client
 import dspy
+from dotenv import load_dotenv
 
+load_dotenv()
 # Configure the Unify model
 unify_model = dspy.OpenAI(
     api_base="https://api.unify.ai/v0/",
-    api_key="APIKEY",
+    api_key=os.getenv("UNIFY_API_KEY"),
     model="mixtral-8x7b-instruct-v0.1@together-ai",
     model_type="chat",
 )
@@ -22,14 +25,17 @@ class BusinessSummary(dspy.Signature):
 
 generate_summary = dspy.Predict(BusinessSummary)
 
+SUPABASE_URL = os.getenv("SUPABASE_URL")
+SUPABASE_KEY = os.getenv("SUPABASE_KEY")
+
+# Create a Supabase client
+supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
+
 
 def main():
     st.set_page_config(page_title="Business Summary Generator", layout="wide")
 
     # Initialize Supabase client
-    url = st.secrets["supabase"]["url"]
-    key = st.secrets["supabase"]["key"]
-    supabase = create_client(url, key)
 
     st.title("Business Summary Generator")
 
@@ -39,7 +45,7 @@ def main():
     if email:
         # Query Supabase to get the row based on email
         query = (
-            supabase.table("your_table_name").select("*").eq("email", email).limit(1)
+            supabase.table("form_submissions").select("*").eq("email", email).limit(1)
         )
         result = query.execute()
 
