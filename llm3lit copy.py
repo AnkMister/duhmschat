@@ -167,8 +167,7 @@ def main():
     )
 
     other_uvp_desc = st.text_area(
-        "What makes you uniquely qualified for this? Share some social proof, some numbers, to generate ethos and belief about your capability and success",
-        key="uvp_desc",
+        "Unique Value Proposition Description", key="uvp_desc"
     )
 
     st.markdown('<hr class="stDivider">', unsafe_allow_html=True)
@@ -308,7 +307,7 @@ def main():
                 "avatar_pain_list": avatar_pain_list,
                 "unique_value_prop": unique_value_prop,
                 "uvp_type": uvp_type,
-                "uvp_desc": uvp_proof,
+                "other_uvp_desc": other_uvp_desc,
                 "lead_magnet_desc": lead_magnet_desc,
                 "num_ticket_items": num_ticket_items,
                 "ticket_order": ticket_order,

@@ -1,6 +1,7 @@
 # streamdspy1.py
 import os
 import streamlit as st
+import asyncio
 from supabase import create_client, Client
 import dspy
 from dotenv import load_dotenv
@@ -38,6 +39,17 @@ SUPABASE_KEY = os.getenv("SUPABASE_KEY")
 
 # Create a Supabase client
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
+
+
+async def generate_business_summary(row_data):
+    pred = await generate_summary(form_data=row_data)
+    return pred.summary
+
+
+async def save_summary_to_supabase(email, business_summary):
+    await supabase.table("business_summaries").insert(
+        {"email": email, "summary": business_summary}
+    ).execute()
 
 
 def main():
@@ -80,27 +92,19 @@ def main():
                 st.write(f"  Benefits: {ticket_item['benefits']}")
 
             # Button to generate business summary
+
             if st.button("Generate Funnel Output"):
                 # Generate the business summary using DSPy
-                pred = generate_summary(form_data=row_data)
-                business_summary = pred.summary
+                business_summary = asyncio.run(generate_business_summary(row_data))
 
                 # Display the business summary
                 st.subheader("Business Summary")
-                # st.markdown(business_summary)
                 st.write(business_summary)
-                st.write("---")
-                st.download_button(
-                    "Download Complete Summary",
-                    data=business_summary,
-                    file_name="business_summary.txt",
-                )
 
-                # Save the business summary to Supabase
-                supabase.table("business_summaries").upsert(
-                    {"email": email, "summary": business_summary}
-                ).execute()
-                st.success("Business summary generated and saved to Supabase!")
+                # Button to save the business summary to Supabase
+                if st.button("Save Business Summary"):
+                    asyncio.run(save_summary_to_supabase(email, business_summary))
+                    st.success("Business summary saved to Supabase!")
         else:
             st.warning("No data found for the provided email address.")
 

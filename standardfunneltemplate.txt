@@ -1,0 +1,94 @@
+Section 1: Hero
+
+Headline
+Subheadline: 
+CTA: 
+Image: 
+
+Section 2: Proof
+
+Number: 
+Description: 
+
+Number: 
+Description: 
+
+Number: 
+Description: 
+
+Section 3: What We Do
+
+Image:
+Headline:
+Paragraph: 
+
+Section 4: Benefits
+
+Image: 
+Headline: 
+Benefit 1:
+Benefit 2:
+Benefit 3:
+Benefit 4:
+Benefit 5:
+
+Section 5: Features
+
+Image: 
+Headline: 
+Feature 1:
+Feature 2:
+Feature 3:
+Feature 4:
+Feature 5:
+
+
+
+Section 6: Product Low Ticket
+
+Image:
+Product Name:
+Product description: 
+CTA: 
+
+Section 7: Product Medium Ticket
+
+Image:
+Product Name:
+Product description: 
+CTA: 
+
+Section 8: Product High Ticket
+
+Image:
+Product Name:
+Product description: 
+CTA: 
+
+Section 9: Quote Divider
+
+Quote: 
+
+Section 10: Embedded Calendar
+
+Headline:
+Image: Calendar Embed
+
+
+Calendar Reminder:
+
+Email 1: Immediately after 
+
+Text: immediately 
+
+
+Email 2: 48 hours before
+
+
+Email 3: 24 hours before
+
+Text: 24 hours before
+
+Email 4: 1 hour before
+
+Text: 5 min before: 
