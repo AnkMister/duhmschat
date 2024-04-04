@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 load_dotenv()
 # Supabase credentials
 
+
 # Create a Supabase client
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
