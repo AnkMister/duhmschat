@@ -1,10 +1,13 @@
+import os
 import streamlit as st
 from supabase import create_client, Client
 from dotenv import load_dotenv
 
 load_dotenv()
 # Supabase credentials
-
+# Accessing the variables
+SUPABASE_URL = os.getenv("SUPABASE_URL")
+SUPABASE_KEY = os.getenv("SUPABASE_KEY")
 
 # Create a Supabase client
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
@@ -95,6 +98,20 @@ def main():
     st.title("Build Your Ascension Model")
 
     email = st.text_input("Email Address", key="email")
+
+    # Button to trigger data retrieval
+    if st.button("Get Data"):
+        if email:  # Check if the email is not empty
+            data = get_form_data_by_email(
+                email
+            )  # Call your function with the user's email
+            if data:
+                st.write(data)  # Display the data
+            else:
+                st.write("No data found for the provided email.")
+        else:
+            st.write("Please enter a valid email.")
+
     st.markdown(
         '<p class="stSubHeader">Enter the email address you used to sign up to Wellness Code</p>',
         unsafe_allow_html=True,
@@ -111,13 +128,13 @@ def main():
 
     avatar_desc = st.text_area(
         "Avatar Description",
-        value="Example: A busy working mom seeking inner peace and balance.",
+        placeholder="Example: A busy working mom seeking inner peace and balance.",
         key="avatar_desc",
     )
 
     avatar_pain_list = st.text_area(
         "Avatar Problem/Pain List",
-        value="Example: Lack of time, difficulty balancing work and family, feeling overwhelmed.",
+        placeholder="Example: Lack of time, difficulty balancing work and family, feeling overwhelmed.",
         key="avatar_pain_list",
     )
 
@@ -145,7 +162,7 @@ def main():
     )
     unique_value_prop = st.text_area(
         "Unique Value Proposition",
-        value="Example: Our holistic approach combines ancient wisdom with modern mindfulness techniques, tailored specifically for busy professionals seeking inner peace and balance.",
+        placeholder="Example: Our holistic approach combines ancient wisdom with modern mindfulness techniques, tailored specifically for busy professionals seeking inner peace and balance.",
         key="unique_value_prop",
     )
 
@@ -164,7 +181,7 @@ def main():
 
     lead_magnet_desc = st.text_area(
         "Lead Magnet Description",
-        value="Example: Download our free guided meditation for inner peace.",
+        placeholder="Example: Download our free guided meditation for inner peace.",
         key="lead_magnet_desc",
     )
 
@@ -205,7 +222,7 @@ def main():
         st.write(f"Enter the name of your {ticket_name.lower()} offering or package.")
         product_name = st.text_input(
             f"{ticket_name} Offer Name",
-            value=f"Example: {ticket_name} Awakening Journey",
+            placeholder=f"Example: {ticket_name} Awakening Journey",
             key=f"product_name_{ticket_name}",
         )
 
@@ -242,7 +259,7 @@ def main():
         st.write(f"Enter the features and description for {ticket_name} Offer.")
         features_desc = st.text_area(
             f"{ticket_name} Offer Features/Description",
-            value="Example: - 6 video modules\n- Workbook and guided meditations\n- Private community access",
+            placeholder="Example: - 6 video modules\n- Workbook and guided meditations\n- Private community access",
             key=f"features_desc_{ticket_name}",
         )
 
@@ -250,7 +267,7 @@ def main():
         st.write(f"Enter the benefits for {ticket_name} Offer.")
         benefits = st.text_area(
             f"{ticket_name} Offer Benefits",
-            value="Example: - Achieve inner peace and balance\n- Reduce stress and anxiety\n- Cultivate mindfulness and presence",
+            placeholder="Example: - Achieve inner peace and balance\n- Reduce stress and anxiety\n- Cultivate mindfulness and presence",
             key=f"benefits_{ticket_name}",
         )
 
